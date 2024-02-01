@@ -11,7 +11,7 @@ class BotClient():
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(server_address)
 
-        command = "rpicam-vid -t 0 --width 1280 --height 720 --nopreview --inline --listen -o tcp://0.0.0.0:8123".split(" ")
+        command = "rpicam-vid -t 0 --exposure sport --width 1280 --height 720 --nopreview --inline --listen -o tcp://0.0.0.0:8123".split(" ")
         #start rpicam stream
         self.process = subprocess.Popen(command)
 
