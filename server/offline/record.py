@@ -45,5 +45,5 @@ cap.release()
 cv.destroyAllWindows()
 
 for idx, frame in enumerate(buffer):
-    cv.imwrite(f'./recordings/{argv[1]}/frame_{idx}.png' , frame )
+    cv.imwrite(f'./recordings/{argv[1]}/frame_{idx:06d}.png' , frame )
 

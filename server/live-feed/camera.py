@@ -8,7 +8,7 @@ import time
 class CameraOdometry:
 
     def __init__(self,stream_url='tcp://192.168.0.31:8123'):
-        self.cap = cv.VideoCapture(stream_url)
+        self.cap = cv.VideoCapture(stream_url,cv.CAP_FFMPEG)
         if not self.cap.isOpened():
             print("Cannot open camera")
             exit()
@@ -154,6 +154,7 @@ class CameraOdometry:
 
 
     def spin(self):
+
         t0 = time.time()
         ret, frame = self.cap.read()
         prev = frame
@@ -170,15 +171,16 @@ class CameraOdometry:
             
             t = time.time()
 
-            #cap it to every second
-            if t - t0 >= 1:
+            #cap it 
+            if t - t0 >= 0.05:
+                #take computation time into account
+                t0 = time.time()
                 curr = frame
                 self.get_matches(prev,curr)
                 prev = curr
-                #take computation time into account
-                t0 = time.time()
+                
 
-            if cv.waitKey(1) == ord('q'):
+            if cv.waitKey(10) == ord('q'):
                 break
         # When everything done, release the capture
         self.cap.release()
